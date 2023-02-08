@@ -1,0 +1,3 @@
+%Fordidden are vertex and edge conflicts
+timelimit(horizon).
+time(0..T) :- timelimit(T).
