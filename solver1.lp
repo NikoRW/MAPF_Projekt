@@ -22,7 +22,7 @@ location(A,X,0) :- start(A,X), time(0).
 :- not location(A,X,horizon), goal(A,X).
 
 %using beeline as a heuristic 
-beeline(A,D,T) :- location(A,X,T), goal(A,X'), X=(V,W), X'=(V',W'), D=#abs(V-V')+#abs(W-W').
+beeline(A,D,T) :- location(A,X,T), goal(A,X'), X=(V,W), X'=(V',W'), D=|V-V'|+|W-W'|.
 
 %remove models where agents beeline is too far from their goal 
 :- beeline(A,D,T), timelimit(T'), D+T>=T'. 
