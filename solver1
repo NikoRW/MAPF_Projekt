@@ -21,8 +21,12 @@ location(A,X,0) :- start(A,X), time(0).
 %remove models where not every agent is at its goal node
 :- not location(A,X,horizon), goal(A,X).
 
-%using beeline as a heuristic to prune solutions
+%using beeline as a heuristic 
 beeline(A,D,T) :- location(A,X,T), goal(A,X'), X=(V,W), X'=(V',W'), D=#abs(V-V')+#abs(W-W').
 
 %remove models where agents beeline is too far from their goal 
 :- beeline(A,D,T), timelimit(T'), D+T>=T'. 
+
+
+spath(A,X,X') :- location(A,X,T-1), location(A,X',T).
+#show spath/4.
