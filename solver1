@@ -1,6 +1,5 @@
 %Fordidden are vertex and swapping conflicts
 
-
 timelimit(horizon).
 time(0..T) :- timelimit(T).
 #minimize{T : timelimit(T)}.
@@ -13,11 +12,17 @@ location(A,X,0) :- start(A,X), time(0).
 { location(A,X,T) : edge(X',X) }1 :- location(A,X',T-1), time(T).
 
 
-%remove solutions with vertex conflicts
+%remove models with vertex conflicts
 :- location(A,X,T), location(A',X,T), A != A'.
 
-%remove solutions with edge conflicts
+%remove models with edge conflicts
 :- location(A,X,T), location(A',X',T), A != A', location(A,X',T+1), location(A',X,T+1). 
 
-%remove solutions where not every agent is at its goal node
+%remove models where not every agent is at its goal node
 :- not location(A,X,horizon), goal(A,X).
+
+%using beeline as a heuristic to prune solutions
+beeline(A,D,T) :- location(A,X,T), goal(A,X'), X=(V,W), X'=(V',W'), D=#abs(V-V')+#abs(W-W').
+
+%remove models where agents beeline is too far from their goal 
+:- beeline(A,D,T), timelimit(T'), D+T>=T'. 
