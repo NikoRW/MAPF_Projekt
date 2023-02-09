@@ -1,3 +1,14 @@
 %Fordidden are vertex and edge conflicts
+
+
 timelimit(horizon).
 time(0..T) :- timelimit(T).
+#minimize{T : timelimit(T)}.
+
+%add slopes for every vertex 
+edge(X,X) :- vertex(X)
+location(A,X,0) :- start(A,X), time(0).
+{ location(A,X,T) : edge(X',X) }1 :- location(A,X',T-1), time(T).
+
+
+:- not location(A,X,horizon), goal(A,X)
