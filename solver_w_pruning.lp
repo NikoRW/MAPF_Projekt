@@ -1,3 +1,5 @@
+#const k = 2.
+
 %Fordidden are vertex and swapping conflicts
 
 1{timelimit(0..horizon)}1.
