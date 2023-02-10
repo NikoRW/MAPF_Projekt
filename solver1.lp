@@ -1,6 +1,6 @@
 %Fordidden are vertex and swapping conflicts
 
-timelimit(horizon).
+1{timelimit(0..horizon)}1.
 time(0..T) :- timelimit(T).
 #minimize{T : timelimit(T)}.
 
@@ -19,7 +19,7 @@ location(A,X',T) :- path(A,X,X',T).
 :- location(A,X,T), location(A',X',T), A != A', location(A,X',T+1), location(A',X,T+1). 
 
 %remove models where not every agent is at its goal node
-:- not location(A,X,horizon), goal(A,X).
+:- not location(A,X,T), timelimit(T), goal(A,X).
 
 
 distance(R,(VX,VY),MD) :- vertex((VX,VY)), vertex((GX,GY)), agent(R), goal(R,(GX,GY)), MD=|GX-VX|+|GY-VY|.
@@ -33,3 +33,4 @@ manhatten(A,D,T) :- location(A,(V,W),T), goal(A,(V',W')), X'=(V',W'), D=|V-V'|+|
 :- manhatten(A,D,T), timelimit(T'), D+T>T'. 
 
 #show path/4.
+#show timelimit/1.
