@@ -9,7 +9,7 @@ time(0..T) :- timelimit(T).
 %prune the graph by removing every vertex with a distance of more than k to any vertex in a shortest path
 prunedvertex(X) :- spath(_,_,X,_).
 prunedvertex(X) :- spath(_,X,_,_).
-prunedvertex((V,W)) :- prunedvertex(V',W'), k<=|V-V'|+|W-W'|, vertex(V,W). 
+prunedvertex((V,W)) :- prunedvertex(V',W'), k<=|V-V'|+|W-W'|, vertex((V,W)). 
 
 prunededge(X,X') :- prunedvertex(X), prunedvertex(X').
 prunededge(X,X') :- prunededge(X',X).
