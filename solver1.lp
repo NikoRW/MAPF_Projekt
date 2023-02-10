@@ -5,7 +5,7 @@ time(0..T) :- timelimit(T).
 %#minimize{T : timelimit(T)}.
 
 %add slopes for every vertex to formulate general rule for agents location
-%edge(X,X) :- vertex(X).
+edge(X,X) :- vertex(X).
 %initialize agent location
 location(A,X,0) :- start(A,X), time(0).
 %since slopes were added this rule covers all possible actions an agent can take
@@ -13,10 +13,10 @@ location(A,X,0) :- start(A,X), time(0).
 location(A,X',T) :- path(A,X,X',T).
 
 %remove models with vertex conflicts
-%:- location(A,X,T), location(A',X,T), A != A'.
+:- location(A,X,T), location(A',X,T), A != A'.
 
 %remove models with edge conflicts
-%:- location(A,X,T), location(A',X',T), A != A', location(A,X',T+1), location(A',X,T+1). 
+:- location(A,X,T), location(A',X',T), A != A', location(A,X',T+1), location(A',X,T+1). 
 
 %remove models where not every agent is at its goal node
 :- not location(A,X,horizon), goal(A,X).
