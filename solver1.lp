@@ -2,7 +2,7 @@
 
 timelimit(horizon).
 time(0..T) :- timelimit(T).
-#minimize{T : timelimit(T)}.
+%#minimize{T : timelimit(T)}.
 
 %add slopes for every vertex to formulate general rule for agents location
 %edge(X,X) :- vertex(X).
