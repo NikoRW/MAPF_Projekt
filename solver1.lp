@@ -9,8 +9,8 @@ time(0..T) :- timelimit(T).
 %initialize agent location
 location(A,X,0) :- start(A,X), time(0).
 %since slopes were added this rule covers all possible actions an agent can take
-{ location(A,X,T) : edge(X',X) }1 :- location(A,X',T-1), time(T).
-
+{ path(A,X,X',T) : edge(X,X') }1 :- location(A,X,T-1), time(T), agent(A).
+location(A,X',T) :- path(A,X,X',T).
 
 %remove models with vertex conflicts
 :- location(A,X,T), location(A',X,T), A != A'.
@@ -27,6 +27,4 @@ location(A,X,0) :- start(A,X), time(0).
 %remove models where agents beeline is too far from their goal 
 %:- beeline(A,D,T), timelimit(T'), D+T>=T'. 
 
-
-spath(A,X,X') :- location(A,X,T-1), location(A,X',T).
-#show spath/3.
+#show path/4.
