@@ -29,4 +29,4 @@ location(A,X,0) :- start(A,X), time(0).
 
 
 spath(A,X,X') :- location(A,X,T-1), location(A,X',T).
-#show spath/4.
+#show spath/3.
