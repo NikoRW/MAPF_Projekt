@@ -9,12 +9,15 @@ prunedvertex(X) :- spath(_,_,X,_).
 prunedvertex(X) :- spath(_,X,_,_).
 prunedvertex((V,W)) :- prunedvertex(V',W'), k<=|V-V'|+|W-W'|. 
 
+prunededge(X,X') :- prunedvertex(X), prunedvertex(X').
+prunededge(X,X') :- prunededge(X',X).
+
 %add slopes for every vertex to formulate general rule for agents location
-edge(X,X) :- vertex(X).
+prunededge(X,X) :- prunedvertex(X).
 %initialize agent location
 location(A,X,0) :- start(A,X), time(0).
 %since slopes were added this rule covers all possible actions an agent can take
-{ path(A,X,X',T) : edge(X,X') }1 :- location(A,X,T-1), time(T), agent(A).
+{ path(A,X,X',T) : prunededge(X,X') }1 :- location(A,X,T-1), time(T), agent(A).
 location(A,X',T) :- path(A,X,X',T).
 
 %remove models with vertex conflicts
