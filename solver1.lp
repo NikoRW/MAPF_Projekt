@@ -21,11 +21,6 @@ location(A,X',T) :- path(A,X,X',T).
 %remove models where not every agent is at its goal node
 :- not location(A,X,T), timelimit(T), goal(A,X).
 
-
-distance(R,(VX,VY),MD) :- vertex((VX,VY)), vertex((GX,GY)), agent(R), goal(R,(GX,GY)), MD=|GX-VX|+|GY-VY|.
-:- distance(R,(VX,VY),MD), path(R,(VX,VY),_,T), horizon-T < MD.
-
-
 %If manhatten distance to the goal node is larger than horizon-T it is not possible to reach the goal node since there is no diagonal movement in a grid.  
 manhatten(A,D,T) :- location(A,(V,W),T), goal(A,(V',W')), X'=(V',W'), D=|V-V'|+|W-W'|.
 
