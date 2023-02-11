@@ -39,4 +39,6 @@ manhatten(A,D,T) :- location(A,(V,W),T), goal(A,(V',W')), X'=(V',W'), D=|V-V'|+|
 :- manhatten(A,D,T), timelimit(T'), D+T>T'. 
 
 #show path/4.
+#show prunedvertex/1.
+#show prunededge/2.
 #show timelimit/1.
