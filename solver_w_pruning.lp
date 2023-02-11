@@ -11,7 +11,8 @@ prunedvertex(X) :- spath(_,_,X,_).
 prunedvertex(X) :- spath(_,X,_,_).
 prunedvertex((V,W)) :- prunedvertex((V',W')), k<=|V-V'|+|W-W'|, vertex((V,W)). 
 
-prunededge(X,X') :- prunedvertex(X), prunedvertex(X').
+prunededge(X,X') :- prunedvertex(X), prunedvertex(X'), edge(X,X').
+prunededge(X,X') :- prunedvertex(X), prunedvertex(X'), edge(X',X).
 prunededge(X,X') :- prunededge(X',X).
 
 %add slopes for every vertex to formulate general rule for agents location
