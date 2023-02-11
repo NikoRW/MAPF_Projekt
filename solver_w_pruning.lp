@@ -20,8 +20,8 @@ prunededge(X,X) :- prunedvertex(X).
 %initialize agent location
 location(A,X,0) :- start(A,X), time(0).
 %since slopes were added this rule covers all possible actions an agent can take
-{ action(A,X,X',T) : prunededge(X,X') }1 :- location(A,X,T-1), time(T), agent(A).
-location(A,X',T) :- action(A,X,X',T).
+{ move(A,X,X',T) : prunededge(X,X') }1 :- location(A,X,T-1), time(T), agent(A).
+location(A,X',T) :- move(A,X,X',T).
 
 %remove models with vertex conflicts
 :- location(A,X,T), location(A',X,T), A != A'.
@@ -40,9 +40,9 @@ manhatten(A,D,T) :- location(A,(V,W),T), goal(A,(V',W')), X'=(V',W'), D=|V-V'|+|
 :- manhatten(A,D,T), timelimit(T'), D+T>T'. 
 
 %generate atoms in the output format
-path(A,X,X') :- action(A,X,X',T).
+path(A,X,X') :- move(A,X,X',T).
 
-plan(A,path(A,X,X'),T) :- action(A,X,X',T).
+plan(A,path(A,X,X'),T) :- move(A,X,X',T).
 
 #show path/3.
 #show plan/3.
