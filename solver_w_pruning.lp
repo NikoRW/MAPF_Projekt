@@ -36,7 +36,7 @@ location(A,X',T) :- move(A,X,X',T).
 %If manhatten distance to the goal node is larger than horizon-T it is not possible to reach the goal node since there is no diagonal movement in a grid.  
 manhatten(A,D,T) :- location(A,(V,W),T), goal(A,(V',W')), X'=(V',W'), D=|V-V'|+|W-W'|.
 
-%remove models where agents beeline is too far from their goal 
+%remove models where agents manhatten distance is too far from their goal 
 :- manhatten(A,D,T), timelimit(T'), D+T>T'. 
 
 %generate atoms in the output format
